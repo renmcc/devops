@@ -78,14 +78,51 @@ from rest_framework.reverse import reverse
 def api_root(request, format=None, *args, **kwargs):
     return Response(
         {
-            "idcs_v2":reverse("idc-list", request=request,format=format),
+            "idcs_v2":reverse("idc-list_v2", request=request,format=format),
+            "idcs_v3": reverse("idc-list_v3", request=request, format=format),
            # "idc_detail_v2":reverse("idc_detail", request=request,format=format)
         }
     )
 
 
+##################################版本三###########################################
+from rest_framework.views import APIView
+from django.http import Http404
 
+class IdcList(APIView):
+    def get(self,request, format=None):
+        queryset = Idc.objects.all()
+        serializer = IdcSerializer(queryset, many=True)
+        return Response(serializer.data)
 
+    def post(self,request, format=None):
+        serializer = IdcSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_204_NO_CONTENT)
+        return Response(serializer.data, status=status.HTTP_400_BAD_REQUEST)
 
+class IdcDetail(APIView):
+    def get_object(self, pk):
+        try:
+            return Idc.objects.get(pk=pk)
+        except Idc.DoesNotExist:
+            raise Http404
 
+    def get(self, request, pk, format=None):
+        idc = self.get_object(pk)
+        serializer = IdcSerializer(idc)
+        return Response(serializer.data)
 
+    def put(self,request,pk,format=None):
+        idc = self.get_object(pk)
+        serializer = IdcSerializer(idc, data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors, status=status.HTTP_404_NOT_FOUND)
+
+    def delete(self,request, pk ,format=None):
+        idc = self.get_objects(pk)
+        idc.delete()
+        return HttpResponse(status=status.HTTP_204_NO_CONTENT)
