@@ -78,9 +78,7 @@ from rest_framework.reverse import reverse
 def api_root(request, format=None, *args, **kwargs):
     return Response(
         {
-            "idcs_v2":reverse("idc-list_v2", request=request,format=format),
-            "idcs_v3": reverse("idc-list_v3", request=request, format=format),
-           # "idc_detail_v2":reverse("idc_detail", request=request,format=format)
+            "idcs":reverse("idc-list", request=request,format=format),
         }
     )
 
@@ -157,13 +155,30 @@ class IdcDetail_v4(generics.GenericAPIView,
     def delete(self, request, *args, **kwargs):
         return self.destroy(request, *args, **kwargs)
 
+##################################版本五###########################################
+class IdcList_V5(generics.ListCreateAPIView):
+    queryset = Idc.objects.all()
+    serializer_class = IdcSerializer
 
+class IdcDetail_V5(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Idc.objects.all()
+    serializer_class = IdcSerializer
+##################################版本六###########################################
+from rest_framework import viewsets
 
+class IdcListViewset(viewsets.GenericViewSet,
+                     mixins.ListModelMixin,
+                     mixins.RetrieveModelMixin,
+                     mixins.DestroyModelMixin,
+                     mixins.UpdateModelMixin,
+                     mixins.CreateModelMixin):
+    queryset = Idc.objects.all()
+    serializer_class = IdcSerializer
 
-
-
-
-
+##################################版本七###########################################
+class IdcListViewset_V7(viewsets.ModelViewSet):
+    queryset = Idc.objects.all()
+    serializer_class = IdcSerializer
 
 
 
