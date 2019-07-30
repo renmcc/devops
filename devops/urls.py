@@ -15,8 +15,11 @@ Including another URLconf
 """
 from django.conf.urls import url,include
 from django.contrib import admin
+from idcs.views import api_root
+from rest_framework.urlpatterns import format_suffix_patterns
 
 urlpatterns = [
+    url("^$", api_root),
     url(r'^admin/', admin.site.urls),
     url(r'^dashboard/', include("dashboard.urls")),
     url(r'^idc/', include("idcs.urls"))

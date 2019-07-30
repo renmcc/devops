@@ -42,16 +42,16 @@ def idc_list_v2(request,*args,**kwargs):
     if request.method == "GET":
         queryset = Idc.objects.all()
         serializer = IdcSerializer(queryset, many=True)
-        return JSONResponse(serializer.data)
+        return Response(serializer.data)
     elif request.method == "POST":
         serializer = IdcSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
-            return JSONResponse(serializer.data, status=status.HTTP_201_CREATED)
-        return JSONResponse(serializer.data, status=status.HTTP_400_BAD_REQUEST)
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.data, status=status.HTTP_400_BAD_REQUEST)
 
 @api_view(["GET","PUT","DELETE"])
-def idc_detail_v2(request,pk,*args,**kwargs):
+def idc_detail_v2(request,pk, *args,**kwargs):
     try:
         idc = Idc.objects.get(pk=pk)
     except Idc.DoesNotExist:
@@ -73,11 +73,15 @@ def idc_detail_v2(request,pk,*args,**kwargs):
         return HttpResponse(status=status.HTTP_204_NO_CONTENT)
 
 
-
-
-
-
-
+from rest_framework.reverse import reverse
+@api_view(["GET"])
+def api_root(request, format=None, *args, **kwargs):
+    return Response(
+        {
+            "idcs_v2":reverse("idc-list", request=request,format=format),
+           # "idc_detail_v2":reverse("idc_detail", request=request,format=format)
+        }
+    )
 
 
 

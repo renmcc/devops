@@ -4,10 +4,12 @@
 #__author__:"ren_mcc"
 from django.conf.urls import url
 from views import idc_list,idc_list_v2,idc_detail_v2
+from rest_framework.urlpatterns import format_suffix_patterns
 
 urlpatterns = [
     url("^idcs/$", idc_list),
-    url("^idcs/$", idc_list),
-    url("^idcs_v2/$", idc_list_v2),
-    url("^idcs_detail_v2/(?P<pk>[0-9]+)/$", idc_detail_v2)
+    url("^idcs_v2/$", idc_list_v2, name="idc-list"),
+    url("^idcs_detail_v2/(?P<pk>[0-9]+)/$", idc_detail_v2, name="idc_detail")
 ]
+
+urlpatterns = format_suffix_patterns(urlpatterns)
