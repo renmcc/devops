@@ -11,10 +11,11 @@ https://docs.djangoproject.com/en/1.11/ref/settings/
 """
 
 import os
+import sys
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-
+sys.path.insert(0, os.path.join(BASE_DIR, "apps"))
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.11/howto/deployment/checklist/
@@ -37,7 +38,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'dashboard.apps.DashboardConfig'
+    'dashboard.apps.DashboardConfig',
+    'rest_framework',
+    'idcs.apps.IdcsConfig'
 ]
 
 MIDDLEWARE = [
@@ -91,6 +94,97 @@ DATABASES = {
         'OPTIONS': {'init_command':'SET storage_engine=INNODB;',
                     'init_command':"SET sql_mode='STRICT_TRANS_TABLES'",
                     }
+    }
+}
+
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'formatters': {
+        'verbose': {
+            'format': '%(levelname)s %(asctime)s %(module)s %(process)d %(thread)d %(message)s'
+        },
+        'simple': {
+            'format': '%(levelname)s %(message)s'
+        },
+        'costom': {
+            'format': '%(asctime)s %(name)s %(lineno)s %(levelname)s %(message)s',
+            'datefmt': '%Y-%m-%d %H:%M:%S'
+        }
+    },
+    'handlers': {
+        'console': {
+            'level': 'DEBUG',
+            'class': 'logging.StreamHandler',
+            'formatter': 'costom'
+        },
+        'file': {
+            'level': 'DEBUG',
+            'class': 'logging.handlers.RotatingFileHandler',
+            'filename': 'E:\\pycharmproject\\devops\\devops\\debug.log',
+            'maxBytes': 1024 * 1024 * 100,
+            'backupCount': 3,
+            'formatter': 'costom'
+        },
+        'request': {
+            'level': 'DEBUG',
+            'class': 'logging.FileHandler',
+            'filename': 'E:\\pycharmproject\\devops\\devops\\request.log',
+            # 'when': "D",
+            # 'interval':1,
+            'formatter': 'costom'
+        },
+        'server': {
+            'level': 'DEBUG',
+            'class': 'logging.FileHandler',
+            'filename': 'E:\\pycharmproject\\devops\\devops\\server.log',
+            # 'when': "D",
+            # 'interval': 1,
+            'formatter': 'costom'
+        },
+        'root': {
+            'level': 'DEBUG',
+            'class': 'logging.FileHandler',
+            'filename': 'E:\\pycharmproject\\devops\\devops\\root.log',
+            # 'when': "D",
+            # 'interval': 1,
+            'formatter': 'costom'
+        },
+        'db_backends': {
+            'level': 'DEBUG',
+            'class': 'logging.FileHandler',
+            'filename': 'E:\\pycharmproject\\devops\\devops\\db_backends.log',
+            # 'when': "D",
+            # 'interval': 1,
+            'formatter': 'costom'
+        },
+    },
+    'loggers': {
+        'django': {
+            'level': "DEBUG",
+            'handlers': ['file'],
+            "propagate": True,
+        },
+        'django.request': {
+            'level': "DEBUG",
+            'handlers': ['request'],
+            "propagate": False,
+        },
+        'django.server': {
+            'level': "DEBUG",
+            'handlers': ['server'],
+            "propagate": False,
+        },
+        'django.db.backends': {
+            'level': "DEBUG",
+            'handlers': ['db_backends'],
+            "propagate": False,
+        }
+    },
+    'root':{
+        'level':"DEBUG",
+        'handlers':["root"]
     }
 }
 
