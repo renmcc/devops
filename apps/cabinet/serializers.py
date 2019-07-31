@@ -8,8 +8,8 @@ from models import Cabinet
 from idcs.models import Idc
 
 class CabinetSerializer(serializers.Serializer):
-    idc = serializers.PrimaryKeyRelatedField(many=False,queryset=Idc.objects.all())
-    name = serializers.CharField(required=True,max_length=255)
+    idc = serializers.PrimaryKeyRelatedField(many=False,queryset=Idc.objects.all(),help_text="所在机房")
+    name = serializers.CharField(required=True,max_length=255,help_text="机房名称")
 
     def to_representation(self, instance):
         """

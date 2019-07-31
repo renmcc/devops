@@ -21,11 +21,20 @@ from users.views import UserViewset
 from rest_framework.documentation import include_docs_urls
 from idcs.views import IdcViewset
 from cabinet.views import CabinetViewset
+from manufacturer.views import ManufacturerViewset,ProductModelViewset
+from servers.views import  ServerAutoReportViewset,NetworkDeviceViewset,IPViewset,ServerViewset
 
 route = DefaultRouter()
 route.register("idcs", IdcViewset, base_name="idcs")
 route.register("users", UserViewset, base_name="users")
 route.register("cabinet", CabinetViewset, base_name="cabinet")
+route.register("Manufacturer", ManufacturerViewset, base_name="Manufacturer")
+route.register("ProductModel", ProductModelViewset, base_name="ProductModel")
+route.register("ServerAutoReport", ServerAutoReportViewset, base_name="ServerAutoReport")
+route.register("NetworkDevice", NetworkDeviceViewset, base_name="NetworkDevice")
+route.register("IP", IPViewset, base_name="IP")
+route.register("Server", ServerViewset, base_name="Server")
+
 urlpatterns = [
     url(r'^', include(route.urls)),
     url(r'^docs/', include_docs_urls("运维平台接口文档"))

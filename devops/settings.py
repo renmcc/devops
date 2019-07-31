@@ -42,7 +42,9 @@ INSTALLED_APPS = [
     'rest_framework',
     'idcs.apps.IdcsConfig',
     'users.apps.UsersConfig',
-    'cabinet.apps.CabinetConfig'
+    'cabinet.apps.CabinetConfig',
+    'manufacturer.apps.ManufacturerConfig',
+    'servers.apps.ServersConfig'
 ]
 
 MIDDLEWARE = [
