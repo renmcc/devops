@@ -42,7 +42,8 @@ INSTALLED_APPS = [
     'dashboard.apps.DashboardConfig',
     'rest_framework',
     'idcs.apps.IdcsConfig',
-    'cmdb.apps.CmdbConfig'
+    'cmdb.apps.CmdbConfig',
+    'users.apps.UsersConfig'
 ]
 
 MIDDLEWARE = [

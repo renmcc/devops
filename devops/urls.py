@@ -16,12 +16,25 @@ Including another URLconf
 from django.conf.urls import url,include
 from django.contrib import admin
 from idcs.views import api_root
-from rest_framework.urlpatterns import format_suffix_patterns
+from rest_framework.routers import DefaultRouter
+from idcs.views import IdcListViewset_V7
+from cmdb.views import ServersListViewset
+from users.views import UserViewset
 
+route = DefaultRouter()
+route.register("idcs", IdcListViewset_V7, base_name="idcs")
+route.register("cmdb", ServersListViewset, base_name="cmdb")
+route.register("users", UserViewset, base_name="users")
 urlpatterns = [
-    url("^$", api_root),
-    url(r'^admin/', admin.site.urls),
-    url(r'^dashboard/', include("dashboard.urls")),
-    url(r'^idc/', include("idcs.urls")),
-    url(r'^cmdb/', include("cmdb.urls"))
+    url(r'^', include(route.urls))
 ]
+
+
+# urlpatterns = [
+#     # url(r'^admin/', admin.site.urls),
+#     # url("^$", api_root),
+#     # url(r'^dashboard/', include("dashboard.urls")),
+#     # url(r'^idc/', include("idcs.urls")),
+#     # url(r'^cmdb/', include("cmdb.urls"))
+# ]
+
