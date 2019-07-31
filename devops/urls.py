@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 """devops URL Configuration
 
 The `urlpatterns` list routes URLs to views. For more information please see:
@@ -15,16 +16,17 @@ Including another URLconf
 """
 from django.conf.urls import url,include
 from django.contrib import admin
-from idcs.views import api_root
 from rest_framework.routers import DefaultRouter
-from idcs.views import IdcListViewset_V7
+from idcs.views import IdcViewset
 from users.views import UserViewset
+from rest_framework.documentation import include_docs_urls
 
 route = DefaultRouter()
-route.register("idcs", IdcListViewset_V7, base_name="idcs")
+route.register("idcs", IdcViewset, base_name="idcs")
 route.register("users", UserViewset, base_name="users")
 urlpatterns = [
-    url(r'^', include(route.urls))
+    url(r'^', include(route.urls)),
+    url(r'^docs/', include_docs_urls("运维平台接口文档"))
 ]
 
 
