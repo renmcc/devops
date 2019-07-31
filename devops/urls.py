@@ -18,12 +18,10 @@ from django.contrib import admin
 from idcs.views import api_root
 from rest_framework.routers import DefaultRouter
 from idcs.views import IdcListViewset_V7
-from cmdb.views import ServersListViewset
 from users.views import UserViewset
 
 route = DefaultRouter()
 route.register("idcs", IdcListViewset_V7, base_name="idcs")
-route.register("cmdb", ServersListViewset, base_name="cmdb")
 route.register("users", UserViewset, base_name="users")
 urlpatterns = [
     url(r'^', include(route.urls))
