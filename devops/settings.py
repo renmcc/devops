@@ -41,7 +41,8 @@ INSTALLED_APPS = [
     'dashboard.apps.DashboardConfig',
     'rest_framework',
     'idcs.apps.IdcsConfig',
-    'users.apps.UsersConfig'
+    'users.apps.UsersConfig',
+    'cabinet.apps.CabinetConfig'
 ]
 
 MIDDLEWARE = [

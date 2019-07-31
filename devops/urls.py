@@ -17,13 +17,15 @@ Including another URLconf
 from django.conf.urls import url,include
 from django.contrib import admin
 from rest_framework.routers import DefaultRouter
-from idcs.views import IdcViewset
 from users.views import UserViewset
 from rest_framework.documentation import include_docs_urls
+from idcs.views import IdcViewset
+from cabinet.views import CabinetViewset
 
 route = DefaultRouter()
 route.register("idcs", IdcViewset, base_name="idcs")
 route.register("users", UserViewset, base_name="users")
+route.register("cabinet", CabinetViewset, base_name="cabinet")
 urlpatterns = [
     url(r'^', include(route.urls)),
     url(r'^docs/', include_docs_urls("运维平台接口文档"))
