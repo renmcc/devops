@@ -22,5 +22,6 @@ urlpatterns = [
     url("^$", api_root),
     url(r'^admin/', admin.site.urls),
     url(r'^dashboard/', include("dashboard.urls")),
-    url(r'^idc/', include("idcs.urls"))
+    url(r'^idc/', include("idcs.urls")),
+    url(r'^cmdb/', include("cmdb.urls"))
 ]
