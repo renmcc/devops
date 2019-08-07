@@ -28,9 +28,8 @@ class CabinetSerializer(serializers.Serializer):
     def to_internal_value(self, data):
         """
         反序列化第一步：拿到提交过来的原始数据：QueryDict => request.GET request.POST
-        :param data:
-        :return:
         """
+        print(data)
         return super(CabinetSerializer,self).to_internal_value(data)
 
     def create(self, validated_data):
