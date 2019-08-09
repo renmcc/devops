@@ -4,6 +4,7 @@ from __future__ import unicode_literals
 from django.db import models
 
 # Create your models here.
+#制造商
 class Manufacturer(models.Model):
     vendor_name = models.CharField("厂商名称",max_length=32,db_index=True,unique=True,help_text="厂商名称")
     tel         = models.CharField("联系电话",null=True,max_length=15,help_text="联系电话")
@@ -17,6 +18,7 @@ class Manufacturer(models.Model):
         db_table = "resources_manufacturer"
         ordering= ["id"]
 
+#型号
 class ProductModel(models.Model):
     model_name = models.CharField("型号名称", max_length=50,help_text="型号名称")
     vendor     = models.ForeignKey(Manufacturer, verbose_name="所属制造商",help_text="所属制造商")
