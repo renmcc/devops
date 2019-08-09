@@ -14,7 +14,7 @@ class Server(models.Model):
     mem             = models.CharField("内存",max_length=32,help_text="内存")
     disk            = models.CharField("磁盘",max_length=200,help_text="磁盘")
     os              = models.CharField("操作系统",max_length=50,help_text="操作系统")
-    sn              = models.CharField("SN",max_length=50,db_index=True,help_text="SN")
+    sn              = models.CharField("SN",max_length=60,db_index=True,help_text="SN")
     manufacturer    = models.ForeignKey(Manufacturer, verbose_name="制造商", help_text="制造商")
     model_name      = models.ForeignKey(ProductModel, verbose_name="服务器型号", help_text="服务器型号")
     rmt_card_ip     = models.CharField("管理管理卡IP",max_length=15,db_index=True,unique=True,help_text="管理管理卡IP")

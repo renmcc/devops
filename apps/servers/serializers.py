@@ -82,6 +82,7 @@ class ServerAutoReportSerializer(serializers.Serializer):
         instance.mem = validated_data.get("mem", instance.mem)
         instance.disk = validated_data.get("disk", instance.disk)
         instance.os = validated_data.get("os", instance.os)
+        instance.save()
         self.check_server_network_device(instance, validated_data["network"])
         return instance
 
@@ -97,6 +98,7 @@ class ServerAutoReportSerializer(serializers.Serializer):
                 network_device_obj = network_device_queryset.get(name__exact=device["name"])
             except NetworkDevice.DoesNotExist:
                 network_device_obj = self.create_network_device(server_obj, device)
+            self.check_ip(network_device_obj, device["ips"])
             current_network_device_queryset.append(network_device_obj)
 
         for network_device_obj in set(network_device_queryset) - set(current_network_device_queryset):
@@ -109,7 +111,6 @@ class ServerAutoReportSerializer(serializers.Serializer):
         device["host"] = server_obj
         #获取network实例
         network_device_obj = NetworkDevice.objects.create(**device)
-        self.check_ip(network_device_obj,ips)
         return network_device_obj
     #3.3、检测网卡ip，不存在创建
     def check_ip(self, network_device_obj, ifnets):
