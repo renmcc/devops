@@ -76,7 +76,7 @@ class ServerAutoReportSerializer(serializers.Serializer):
             return self.update_server(server_obj, validated_data)
 
     def update_server(self, instance, validated_data):
-        print 'update'
+        instance.ip = validated_data.get("ip", instance.ip)
         instance.hostname = validated_data.get("hostname", instance.hostname)
         instance.cpu = validated_data.get("cpu", instance.cpu)
         instance.mem = validated_data.get("mem", instance.mem)
