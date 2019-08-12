@@ -37,6 +37,7 @@ route.register("Server", ServerViewset, base_name="Server")
 
 urlpatterns = [
     url(r'^', include(route.urls)),
+    url(r'^api-auth', include("rest_framework.urls",namespace="rest_framework")),
     url(r'^docs/', include_docs_urls("运维平台接口文档"))
 ]
 

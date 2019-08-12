@@ -7,6 +7,8 @@ from django.contrib.auth import get_user_model
 from rest_framework.pagination import PageNumberPagination
 from users.pagination import Pagination
 from serializers import UserSerializer
+from rest_framework.authentication import SessionAuthentication
+from rest_framework.permissions import IsAuthenticated
 from filter import UserFilter
 User = get_user_model()
 
@@ -25,6 +27,8 @@ class UserViewset(viewsets.ReadOnlyModelViewSet):
 
     filter_class = UserFilter
     filter_fields = ("username",)
+    # authentication_classes = (SessionAuthentication,)
+    permission_classes = (IsAuthenticated,)
 
 
 
