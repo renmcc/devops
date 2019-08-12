@@ -232,6 +232,9 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 REST_FRAMEWORK = {
-    "DEFAULT_AUTHENTICATION_CLASSES": []
+    "DEFAULT_AUTHENTICATION_CLASSES": [],
+    "PAGE_SIZE": 10,
+    #"DEFAULT_PAGINATION_CLASS":"rest_framework.pagination.PageNumberPagination"
+    "DEFAULT_PAGINATION_CLASS":"users.pagination.Pagination"
 }
 SILENCED_SYSTEM_CHECKS = ['mysql.E001']
