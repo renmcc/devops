@@ -5,6 +5,7 @@ from django.shortcuts import render
 from rest_framework import viewsets,mixins
 from servers.models import Server,NetworkDevice,IP
 from servers.serializers import ServerAutoReportSerializer,NetworkDeviceSerializer,IPSerializer,ServerSerializer
+from filter import ServerFilter
 
 # Create your views here.
 class ServerAutoReportViewset(mixins.CreateModelMixin, viewsets.GenericViewSet):
@@ -24,6 +25,8 @@ class ServerViewset(viewsets.ReadOnlyModelViewSet):
     """
     queryset = Server.objects.all()
     serializer_class = ServerSerializer
+    filter_class = ServerFilter
+    filter_fields = ("hostname",)
 
 class NetworkDeviceViewset(viewsets.ReadOnlyModelViewSet):
     """

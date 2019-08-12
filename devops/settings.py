@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'dashboard.apps.DashboardConfig',
     'rest_framework',
+    'django_filters',
     'idcs.apps.IdcsConfig',
     'users.apps.UsersConfig',
     'cabinet.apps.CabinetConfig',
@@ -235,6 +236,9 @@ REST_FRAMEWORK = {
     "DEFAULT_AUTHENTICATION_CLASSES": [],
     "PAGE_SIZE": 10,
     #"DEFAULT_PAGINATION_CLASS":"rest_framework.pagination.PageNumberPagination"
-    "DEFAULT_PAGINATION_CLASS":"users.pagination.Pagination"
+    "DEFAULT_PAGINATION_CLASS":"users.pagination.Pagination",
+    'DEFAULT_FILTER_BACKENDS': (
+        'django_filters.rest_framework.DjangoFilterBackend',
+    ),
 }
 SILENCED_SYSTEM_CHECKS = ['mysql.E001']
