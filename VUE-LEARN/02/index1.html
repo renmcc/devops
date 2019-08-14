@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <div id="app">
+        <!-- Mustache 标签将会被替代为对应数据对象上 msg 属性的值 -->
+        {{ message }}
+
+        <!-- 如果只想一次性的插值，不想被数据驱动改变，用 v-once -->
+        <div v-once>{{ messageForOnce }}</div>
+
+        <!-- 也可以渲染模板，用v-html -->
+        <div v-html="messageHtml"></div>
+
+        <span v-bind:title="title">
+            这个 DOM 具有动态的 Title
+        </span>
+
+        <img v-bind:src="imgUrl">
+    </div>
+
+</body>
+<script src="https://cdn.jsdelivr.net/npm/vue@2.6.10/dist/vue.js"></script>
+<script>
+    var app = new Vue ({
+        el: '#app',
+        data: {
+            message: 'Hello vue for message!',
+            messageForOnce: 'Hellp vue for once message',
+            messageHtml: '<span style="color: red;"> Hello vue for template render</span>',
+            title: 'title-2',
+            imgUrl: 'https://gss1.baidu.com/6ONXsjip0QIZ8tyhnq/it/u=2247142768,3368273526&fm=173&app=49&f=JPEG?w=218&h=146&s=A6725F84422315139C090D330300D0C2'
+        }
+        }
+    )
+</script>
+</html>
