@@ -22,10 +22,15 @@
         <img v-bind:src="imgUrl">
     </div>
 
+    <div class="root">
+        {{ value }}
+    </div>
+
 </body>
 <script src="https://cdn.jsdelivr.net/npm/vue@2.6.10/dist/vue.js"></script>
 <script>
     var app = new Vue ({
+        <!-- el是绑定 DOM -->
         el: '#app',
         data: {
             message: 'Hello vue for message!',
@@ -36,5 +41,14 @@
         }
         }
     )
+
+    new Vue({
+        el: '.root',
+        data() {
+            return {
+                value: 'hao123旅游'
+            }
+        }
+    })
 </script>
 </html>
