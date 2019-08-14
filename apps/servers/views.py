@@ -27,6 +27,9 @@ class ServerViewset(viewsets.ReadOnlyModelViewSet):
     serializer_class = ServerSerializer
     filter_class = ServerFilter
     filter_fields = ("hostname",)
+    extra_perm_map = {
+        "GET": ["servers.view_server"]
+    }
 
 class NetworkDeviceViewset(viewsets.ReadOnlyModelViewSet):
     """

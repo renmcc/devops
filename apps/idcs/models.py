@@ -15,3 +15,6 @@ class Idc(models.Model):
         return self.name
     class Meta:
         db_table = 'resources_idc'
+        permissions = (
+            ("view_idc", "can view idc"),
+        )

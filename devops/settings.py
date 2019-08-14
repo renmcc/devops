@@ -38,7 +38,6 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'dashboard.apps.DashboardConfig',
     'rest_framework',
     'django_filters',
     'idcs.apps.IdcsConfig',
@@ -239,6 +238,10 @@ REST_FRAMEWORK = {
     "DEFAULT_PAGINATION_CLASS":"users.pagination.Pagination",
     'DEFAULT_FILTER_BACKENDS': (
         'django_filters.rest_framework.DjangoFilterBackend',
+    ),
+    'DEFAULT_PERMISSION_CLASSES': (
+        #'rest_framework.permissions.DjangoModelPermissions',
+        'devops.permissions.Permissions',
     ),
 }
 SILENCED_SYSTEM_CHECKS = ['mysql.E001']

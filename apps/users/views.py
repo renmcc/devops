@@ -2,7 +2,7 @@
 from __future__ import unicode_literals
 
 from django.shortcuts import render
-from rest_framework import viewsets
+from rest_framework import viewsets, mixins,response,permissions
 from django.contrib.auth import get_user_model
 from rest_framework.pagination import PageNumberPagination
 from users.pagination import Pagination
@@ -28,10 +28,24 @@ class UserViewset(viewsets.ReadOnlyModelViewSet):
     filter_class = UserFilter
     filter_fields = ("username",)
     # authentication_classes = (SessionAuthentication,)
-    permission_classes = (IsAuthenticated,)
+    #permission_classes = (IsAuthenticated,)
 
 
+class DashboardStatusViewset(viewsets.ViewSet):
+    """
+    list:
+        返回Dashboard数据
+    """
+    permission_classes = (permissions.IsAuthenticated, )
 
+    def list(self, request, *args, **kwargs):
+        data = self.get_content_data()
+        return response.Response(data)
 
+    def get_content_data(self):
+        return {
+            "aa":11,
+            "bb":22
+        }
 
 
