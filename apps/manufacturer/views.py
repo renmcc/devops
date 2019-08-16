@@ -3,6 +3,8 @@ from __future__ import unicode_literals
 
 from django.shortcuts import render
 from rest_framework import viewsets
+from rest_framework.permissions import IsAuthenticated
+
 from manufacturer.models import Manufacturer,ProductModel
 from manufacturer.serializers import ManufacturerSerializer,ProductModelSerializer
 
@@ -24,6 +26,7 @@ class ManufacturerViewset(viewsets.ModelViewSet):
     """
     queryset = Manufacturer.objects.all()
     serializer_class = ManufacturerSerializer
+
 
 
 class ProductModelViewset(viewsets.ModelViewSet):

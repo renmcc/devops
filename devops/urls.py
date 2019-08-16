@@ -17,7 +17,7 @@ Including another URLconf
 from django.conf.urls import url,include
 from django.contrib import admin
 from rest_framework.routers import DefaultRouter
-from users.views import UserViewset
+from users.views import UserViewset,DashboardStatusViewset
 from rest_framework.documentation import include_docs_urls
 from idcs.views import IdcViewset
 from cabinet.views import CabinetViewset
@@ -34,6 +34,7 @@ route.register("ServerAutoReport", ServerAutoReportViewset, base_name="ServerAut
 route.register("NetworkDevice", NetworkDeviceViewset, base_name="NetworkDevice")
 route.register("IP", IPViewset, base_name="IP")
 route.register("Server", ServerViewset, base_name="Server")
+route.register("Dashboard", DashboardStatusViewset, base_name="Dashboard")
 
 urlpatterns = [
     url(r'^', include(route.urls)),
