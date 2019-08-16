@@ -4,7 +4,7 @@
 #__author__:"ren_mcc"
 
 import django_filters
-from models import Server
+from .models import Server
 from django.db.models import Q
 
 class ServerFilter(django_filters.FilterSet):

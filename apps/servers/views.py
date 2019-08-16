@@ -5,7 +5,7 @@ from django.shortcuts import render
 from rest_framework import viewsets,mixins
 from servers.models import Server,NetworkDevice,IP
 from servers.serializers import ServerAutoReportSerializer,NetworkDeviceSerializer,IPSerializer,ServerSerializer
-from filter import ServerFilter
+from .filter import ServerFilter
 
 # Create your views here.
 class ServerAutoReportViewset(mixins.CreateModelMixin, viewsets.GenericViewSet):

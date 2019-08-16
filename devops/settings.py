@@ -38,7 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'dashboard.apps.DashboardConfig',
+    #'dashboard.apps.DashboardConfig',
     'rest_framework',
     'django_filters',
     'idcs.apps.IdcsConfig',
@@ -94,8 +94,8 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'devops',
         'USER': 'root',
-        'PASSWORD': '123456',
-        'HOST': '192.168.10.50',
+        'PASSWORD': '910202',
+        'HOST': '192.168.10.10',
         'OPTIONS': {'init_command':'SET storage_engine=INNODB;',
                     'init_command':"SET sql_mode='STRICT_TRANS_TABLES'",
                     }
@@ -240,5 +240,8 @@ REST_FRAMEWORK = {
     'DEFAULT_FILTER_BACKENDS': (
         'django_filters.rest_framework.DjangoFilterBackend',
     ),
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.DjangoObjectPermissions',
+    ],
 }
 SILENCED_SYSTEM_CHECKS = ['mysql.E001']

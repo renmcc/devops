@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 from idcs.models import  Idc
-from serializers import IdcSerializer
+from .serializers import IdcSerializer
 from rest_framework import viewsets
 
 

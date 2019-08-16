@@ -3,7 +3,7 @@ from __future__ import unicode_literals
 
 from __future__ import unicode_literals
 from cabinet.models import  Cabinet
-from serializers import CabinetSerializer
+from .serializers import CabinetSerializer
 from rest_framework import viewsets
 
 

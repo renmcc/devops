@@ -3,7 +3,7 @@
 #__time__:2019/7/3115:43
 #__author__:"ren_mcc"
 from rest_framework import serializers
-from models import Server,NetworkDevice,IP
+from .models import Server,NetworkDevice,IP
 from manufacturer.models import Manufacturer,ProductModel
 
 
@@ -49,7 +49,6 @@ class ServerAutoReportSerializer(serializers.Serializer):
 
     #3.1、创建提交数据
     def create_server(self, validated_data):
-        print 'create'
         #server model没有这个字段，所以先拿出来
         network = validated_data.pop("network")
         #创建对象，返回server的实例
