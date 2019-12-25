@@ -38,10 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-<<<<<<< HEAD
     #'dashboard.apps.DashboardConfig',
-=======
->>>>>>> bf7fddde435495d04585103dfb38afccfbae5c90
     'rest_framework',
     'django_filters',
     'idcs.apps.IdcsConfig',
@@ -243,15 +240,12 @@ REST_FRAMEWORK = {
     'DEFAULT_FILTER_BACKENDS': (
         'django_filters.rest_framework.DjangoFilterBackend',
     ),
-<<<<<<< HEAD
     'DEFAULT_PERMISSION_CLASSES': [
         'rest_framework.permissions.DjangoObjectPermissions',
     ],
-=======
     'DEFAULT_PERMISSION_CLASSES': (
         #'rest_framework.permissions.DjangoModelPermissions',
         'devops.permissions.Permissions',
     ),
->>>>>>> bf7fddde435495d04585103dfb38afccfbae5c90
 }
 SILENCED_SYSTEM_CHECKS = ['mysql.E001']
