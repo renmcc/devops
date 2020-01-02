@@ -58,9 +58,9 @@ def index_templete(request):
 
 def index(request):
     #只读的字典，要想修改只能copy一份
-    print request.GET.getlist("name")
+    print(request.GET.getlist("name"))
     get_data = request.GET.copy()
-    print get_data
+    print(get_data)
     return HttpResponse("")
 
 def userlogin(request):
@@ -72,14 +72,14 @@ def userlogin(request):
         user_obj = authenticate(username=username,password=password)
         if user_obj:
             login(request, user_obj)
-            print "登录成功"
+            print("登录成功")
         else:
-            print "登录失败"
+            print("登录失败")
             return render(request, 'user_login.html')
     return HttpResponse("")
 
 def articles(request, *args, **kwargs):
-    print args
+    print(args)
     return HttpResponse("")
 
 class User111():

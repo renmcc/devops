@@ -6,10 +6,10 @@ from rest_framework import viewsets, mixins,response,permissions
 from django.contrib.auth import get_user_model
 from rest_framework.pagination import PageNumberPagination
 from users.pagination import Pagination
-from serializers import UserSerializer
+from .serializers import UserSerializer
 from rest_framework.authentication import SessionAuthentication
 from rest_framework.permissions import IsAuthenticated
-from filter import UserFilter
+from .filter import UserFilter
 User = get_user_model()
 
 # Create your views here.

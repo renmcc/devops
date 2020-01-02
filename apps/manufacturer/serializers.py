@@ -3,7 +3,7 @@
 #__time__:2019/7/3115:43
 #__author__:"ren_mcc"
 from rest_framework import serializers
-from models import Manufacturer,ProductModel
+from .models import Manufacturer,ProductModel
 
 
 class ManufacturerSerializer(serializers.ModelSerializer):

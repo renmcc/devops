@@ -4,7 +4,7 @@
 #__author__:"ren_mcc"
 from rest_framework import serializers
 from idcs.serializers import IdcSerializer
-from models import Cabinet
+from .models import Cabinet
 from idcs.models import Idc
 
 class CabinetSerializer(serializers.Serializer):
