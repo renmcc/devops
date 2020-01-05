@@ -79,7 +79,8 @@ from rest_framework.reverse import reverse
 @api_view(["GET"])
 def api_root(request,format=None, *args, **kwargs):
     return Response({
-        "idcs": reverse("idc-list", request=request, format=format)
+        "idcs": reverse("idc-list", request=request, format=format),
+        #"idcsdetail": reverse("idc-detail", request=request, format=format),
     })
 
 ###################################################版本三###########################################
@@ -98,6 +99,34 @@ class IdcList(APIView):
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.data, status=status.HTTP_400_BAD_REQUEST)
 
+######################################版本四####################################################
+from rest_framework import mixins, generics
+
+class IdcList_v4(generics.GenericAPIView,
+                 mixins.ListModelMixin,
+                 mixins.CreateModelMixin):
+    queryset = Idc.objects.all()
+    serializer_class = IdcSerializer
+
+    def get(self,request, *args, **kwargs):
+        return self.list(request, *args, **kwargs)
+
+    def post(self, request, *args, **kwargs):
+        return self.create(request, *args, **kwargs)
+
+class IdcDetail_v4(generics.GenericAPIView,
+                   mixins.RetrieveModelMixin,
+                   mixins.UpdateModelMixin,
+                   mixins.DestroyModelMixin):
+    queryset = Idc.objects.all()
+    serializer_class = IdcSerializer
+
+    def get(self, request, *args, **kwargs):
+        return self.retrieve(request, *args, **kwargs)
+    def put(self, request, *args, **kwargs):
+        return self.update(request, *args, **kwargs)
+    def delete(self, request, *args, **kwargs):
+        return self.destroy(request, *args, **kwargs)
 
 
 
