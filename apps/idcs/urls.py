@@ -76,7 +76,14 @@ urlpatterns = [
 
 urlpatterns = format_suffix_patterns(urlpatterns)
 
+###########################版本五###################################
+urlpatterns = [
+    url(r'^$', views.api_root,),
+    url(r'^idcs/$', views.IdcList_v5.as_view(), name="idc-list"),
+    url(r'^idcs/(?P<pk>[0-9]+)/$', views.IdcDetail_v5.as_view(),name="idc-detail"),
+]
 
+urlpatterns = format_suffix_patterns(urlpatterns)
 
 
 

@@ -128,6 +128,15 @@ class IdcDetail_v4(generics.GenericAPIView,
     def delete(self, request, *args, **kwargs):
         return self.destroy(request, *args, **kwargs)
 
+#######################################版本五#######################################
+class IdcList_v5(generics.ListCreateAPIView):
+    queryset = Idc.objects.all()
+    serializer_class = IdcSerializer
+
+class IdcDetail_v5(generics.RetrieveDestroyAPIView):
+    queryset = Idc.objects.all()
+    serializer_class = IdcSerializer
+
 
 
 class IdcViewset(viewsets.ModelViewSet):
