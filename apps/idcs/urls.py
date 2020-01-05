@@ -106,6 +106,24 @@ urlpatterns = [
 
 urlpatterns = format_suffix_patterns(urlpatterns)
 
+###########################版本七###################################
+from rest_framework.routers import DefaultRouter
+
+route = DefaultRouter()
+
+route.register("idcs", views.IdcViewWset_v7)
+
+urlpatterns = [
+    url(r'^', include(route.urls)),
+]
+
+
+
+
+
+
+
+
 
 
 
