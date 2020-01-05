@@ -42,20 +42,19 @@ Including another URLconf
 #     url(r'^docs/', include_docs_urls("运维平台接口文档"))
 # ]
 
-
-# urlpatterns = [
-#     # url(r'^admin/', admin.site.urls),
-#     # url("^$", api_root),
-#     # url(r'^dashboard/', include("dashboard.urls")),
-#     # url(r'^idc/', include("idcs.urls")),
-#     # url(r'^cmdb/', include("cmdb.urls"))
-# ]
-
-
 from django.conf.urls import url,include
-from django.contrib import admin
+from rest_framework.routers import DefaultRouter
+from rest_framework.documentation import include_docs_urls
+from idcs.views import IdcViewset
+from users.views import UserViewset
+
+
+route = DefaultRouter()
+
+route.register("idcs", IdcViewset, base_name="idcs")
+route.register("users",UserViewset , base_name="users")
 
 urlpatterns = [
-    url(r'^admin/', admin.site.urls),
-    url(r'^idc/', include("idcs.urls")),
+    url(r'^', include(route.urls)),
+    url(r'^docs/', include_docs_urls("运维接口文档"))
 ]

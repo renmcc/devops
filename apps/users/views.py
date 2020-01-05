@@ -10,6 +10,8 @@ from .serializers import UserSerializer
 from rest_framework.authentication import SessionAuthentication
 from rest_framework.permissions import IsAuthenticated
 from .filter import UserFilter
+
+
 User = get_user_model()
 
 # Create your views here.
