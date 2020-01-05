@@ -85,6 +85,26 @@ urlpatterns = [
 
 urlpatterns = format_suffix_patterns(urlpatterns)
 
+###########################版本六###################################
+idc_list = views.IdcListViewWset.as_view({
+    "get": "list",
+    "post": "create"
+})
+
+idc_detail = views.IdcListViewWset.as_view({
+    "get": "retrieve",
+    "put": "update",
+    "delete": "destroy"
+})
+
+
+urlpatterns = [
+    url(r'^$', views.api_root,),
+    url(r'^idcs/$', idc_list, name="idc-list"),
+    url(r'^idcs/(?P<pk>[0-9]+)/$', idc_detail,name="idc-detail"),
+]
+
+urlpatterns = format_suffix_patterns(urlpatterns)
 
 
 

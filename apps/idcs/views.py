@@ -137,6 +137,23 @@ class IdcDetail_v5(generics.RetrieveDestroyAPIView):
     queryset = Idc.objects.all()
     serializer_class = IdcSerializer
 
+#######################################版本五#######################################
+from rest_framework import viewsets
+
+class IdcListViewWset(viewsets.GenericViewSet,
+                      mixins.ListModelMixin,
+                      mixins.RetrieveModelMixin,
+                      mixins.DestroyModelMixin,
+                      mixins.UpdateModelMixin,
+                      mixins.CreateModelMixin):
+    queryset = Idc.objects.all()
+    serializer_class = IdcSerializer
+
+
+
+
+
+
 
 
 class IdcViewset(viewsets.ModelViewSet):
