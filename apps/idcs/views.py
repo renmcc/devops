@@ -54,6 +54,30 @@ def idc_detail(request, pk, *args, **kwargs):
         idc.delete()
         return HttpResponse(status=204)
 
+#############################################################版本二##############################################
+from rest_framework.decorators import api_view
+from rest_framework import status
+from rest_framework.response import Response
+
+@api_view(["GET", "POST"])
+def idc_list_v2(request, *args, **kwargs):
+    if request.method == "GET":
+        queryset = Idc.objects.all()
+        serializer = IdcSerializer(queryset, many= True)
+        return Response(serializer.data)
+
+    elif request.method == "POST":
+        #使用装饰器后不需要再处理post过来的数据，可以直接序列化
+        serializer = IdcSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status = status.HTTP_201_CREATED)
+        return Response(serializer.data, status = status.HTTP_400_BAD_REQUEST)
+
+
+
+
+
 class IdcViewset(viewsets.ModelViewSet):
     """
     retrieve:
