@@ -49,13 +49,23 @@ from django.conf.urls import url,include
 from idcs import views
 
 urlpatterns = [
-    url(r'^idcs/$', views.idc_list,),
+    url(r'^$', views.api_root,),
     url(r'^idcs/(?P<pk>[0-9]+)/$', views.idc_detail,),
-    url(r'^idcsv2/$', views.idc_list_v2,),
+    url(r'^idcsv2/$', views.idc_list_v2, name="idc-list"),
 ]
 
+from rest_framework.urlpatterns import format_suffix_patterns
+
+urlpatterns = format_suffix_patterns(urlpatterns)
 
 
+#############版本三#################
+urlpatterns = [
+    url(r'^$', views.api_root,),
+    url(r'^idcsv2/$', views.IdcList.as_view(), name="idc-list"),
+]
+
+urlpatterns = format_suffix_patterns(urlpatterns)
 
 
 

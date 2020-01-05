@@ -232,20 +232,20 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.11/howto/static-files/
 
 STATIC_URL = '/static/'
-REST_FRAMEWORK = {
-    #"DEFAULT_AUTHENTICATION_CLASSES": [],
-    "PAGE_SIZE": 10,
-    #"DEFAULT_PAGINATION_CLASS":"rest_framework.pagination.PageNumberPagination"
-    "DEFAULT_PAGINATION_CLASS":"users.pagination.Pagination",
-    'DEFAULT_FILTER_BACKENDS': (
-        'django_filters.rest_framework.DjangoFilterBackend',
-    ),
-    'DEFAULT_PERMISSION_CLASSES': [
-        'rest_framework.permissions.DjangoObjectPermissions',
-    ],
-    'DEFAULT_PERMISSION_CLASSES': (
-        #'rest_framework.permissions.DjangoModelPermissions',
-        'devops.permissions.Permissions',
-    ),
-}
+# REST_FRAMEWORK = {
+#     #"DEFAULT_AUTHENTICATION_CLASSES": [],
+#     "PAGE_SIZE": 10,
+#     #"DEFAULT_PAGINATION_CLASS":"rest_framework.pagination.PageNumberPagination"
+#     "DEFAULT_PAGINATION_CLASS":"users.pagination.Pagination",
+#     'DEFAULT_FILTER_BACKENDS': (
+#         'django_filters.rest_framework.DjangoFilterBackend',
+#     ),
+#     'DEFAULT_PERMISSION_CLASSES': [
+#         'rest_framework.permissions.DjangoObjectPermissions',
+#     ],
+#     'DEFAULT_PERMISSION_CLASSES': (
+#         #'rest_framework.permissions.DjangoModelPermissions',
+#         'devops.permissions.Permissions',
+#     ),
+# }
 SILENCED_SYSTEM_CHECKS = ['mysql.E001']

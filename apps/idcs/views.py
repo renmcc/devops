@@ -60,7 +60,7 @@ from rest_framework import status
 from rest_framework.response import Response
 
 @api_view(["GET", "POST"])
-def idc_list_v2(request, *args, **kwargs):
+def idc_list_v2(request,format=None, *args, **kwargs):
     if request.method == "GET":
         queryset = Idc.objects.all()
         serializer = IdcSerializer(queryset, many= True)
@@ -74,6 +74,29 @@ def idc_list_v2(request, *args, **kwargs):
             return Response(serializer.data, status = status.HTTP_201_CREATED)
         return Response(serializer.data, status = status.HTTP_400_BAD_REQUEST)
 
+
+from rest_framework.reverse import reverse
+@api_view(["GET"])
+def api_root(request,format=None, *args, **kwargs):
+    return Response({
+        "idcs": reverse("idc-list", request=request, format=format)
+    })
+
+###################################################版本三###########################################
+from rest_framework.views import APIView
+
+class IdcList(APIView):
+    def get(self, request, format=None):
+        queryset = Idc.objects.all()
+        serializer = IdcSerializer(queryset, many=True)
+        return Response(serializer.data)
+
+    def post(self, request, format=None):
+        serializer = IdcSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.data, status=status.HTTP_400_BAD_REQUEST)
 
 
 
