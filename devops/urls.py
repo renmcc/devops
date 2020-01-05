@@ -47,14 +47,21 @@ from rest_framework.routers import DefaultRouter
 from rest_framework.documentation import include_docs_urls
 from idcs.views import IdcViewset
 from users.views import UserViewset
+from cabinet.views import CabinetViewset
+
+from rest_framework.schemas import get_schema_view
+from rest_framework_swagger.renderers import SwaggerUIRenderer, OpenAPICodec
+schema_view = get_schema_view(title='API', renderer_classes=[SwaggerUIRenderer, OpenAPICodec])
 
 
 route = DefaultRouter()
 
 route.register("idcs", IdcViewset, base_name="idcs")
 route.register("users",UserViewset , base_name="users")
+route.register("cabinet",CabinetViewset , base_name="cabinet")
 
 urlpatterns = [
     url(r'^', include(route.urls)),
     url(r'^docs/', include_docs_urls("运维接口文档"))
+    #url(r'docs/', schema_view, name='运维接口文档')
 ]

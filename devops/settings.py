@@ -45,14 +45,15 @@ INSTALLED_APPS = [
     'users.apps.UsersConfig',
     'cabinet.apps.CabinetConfig',
     'manufacturer.apps.ManufacturerConfig',
-    'servers.apps.ServersConfig'
+    'servers.apps.ServersConfig',
+    'rest_framework_swagger'
 ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
-    #'django.middleware.csrf.CsrfViewMiddleware',
+    'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
