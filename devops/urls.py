@@ -48,6 +48,7 @@ from rest_framework.documentation import include_docs_urls
 from idcs.views import IdcViewset
 from users.views import UserViewset
 from cabinet.views import CabinetViewset
+from manufacturer.views import ManufacturerViewset,ProductModelViewset
 
 from rest_framework.schemas import get_schema_view
 from rest_framework_swagger.renderers import SwaggerUIRenderer, OpenAPICodec
@@ -59,6 +60,8 @@ route = DefaultRouter()
 route.register("idcs", IdcViewset, base_name="idcs")
 route.register("users",UserViewset , base_name="users")
 route.register("cabinet",CabinetViewset , base_name="cabinet")
+route.register("Manufacturer",ManufacturerViewset , base_name="Manufacturer")
+route.register("ProductModel",ProductModelViewset , base_name="ProductModel")
 
 urlpatterns = [
     url(r'^', include(route.urls)),
