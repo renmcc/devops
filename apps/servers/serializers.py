@@ -11,30 +11,33 @@ class ServerAutoReportSerializer(serializers.Serializer):
     """
     服务器同步序列化类
     """
-    ip                = serializers.IPAddressField(required=True)
-    hostname          = serializers.CharField(required=True,max_length=20)
-    cpu               = serializers.CharField(required=True, max_length=50)
-    mem               = serializers.CharField(required=True, max_length=20)
-    disk              = serializers.CharField(required=True, max_length=200)
-    os                = serializers.CharField(required=True, max_length=50)
-    sn                = serializers.CharField(required=True, max_length=50)
-    manufacturer      = serializers.CharField(required=True)
-    model_name        = serializers.CharField(required=True)
-    uuid              = serializers.CharField(required=True, max_length=50)
-    network           = serializers.JSONField(required=True)
+    ip                = serializers.IPAddressField(required=True,label="管理IP",help_text="管理IP")
+    hostname          = serializers.CharField(required=True,max_length=20,label="主机名",help_text="主机名")
+    cpu               = serializers.CharField(required=True, max_length=50,label="CPU",help_text="CPU")
+    mem               = serializers.CharField(required=True, max_length=20,label="内存",help_text="内存")
+    disk              = serializers.CharField(required=True, max_length=200,label="磁盘",help_text="磁盘")
+    os                = serializers.CharField(required=True, max_length=50,label="操作系统",help_text="操作系统")
+    sn                = serializers.CharField(required=True, max_length=50,label="SN",help_text="SN")
+    manufacturer      = serializers.CharField(required=True,label="制造商",help_text="制造商")
+    model_name        = serializers.CharField(required=True,label="服务器型号",help_text="服务器型号")
+    uuid              = serializers.CharField(required=True, max_length=50,label="UUID",help_text="UUID")
+    network           = serializers.JSONField(required=True,label="网卡设备名",help_text="网卡设备名")
 
-    #1、验证传进来的制造商是否存在，不存在创建，最终返回制造商实例
+###################################################################################################
+    #反序列化验证传进来的制造商是否存在，不存在创建，最终返回制造商实例
     def validate_manufacturer(self,value):
         try:
             return Manufacturer.objects.get(vendor_name__exact=value)
         except Manufacturer.DoesNotExist:
             return self.create_manufacturer(value)
 
-    #1.1、创建制造商
+    #创建制造商
     def create_manufacturer(self, vendor_name):
         return Manufacturer.objects.create(vendor_name=vendor_name)
+##################################################################################################
 
-    #2、验证制造商型号是否存在，只能在对象级别验证，不存在创建，最终返回制造商型号实例
+##############################################################################################################
+    #反序列化验证制造商的型号是否存在，只能在对象级别验证，不存在创建，最终返回制造商型号实例
     def validate(self, attrs):
         manufacturer_obj = attrs["manufacturer"]
         try:
@@ -43,23 +46,17 @@ class ServerAutoReportSerializer(serializers.Serializer):
             attrs["model_name"] = self.create_product_model(attrs["model_name"], manufacturer_obj)
         return attrs
 
-    #2.1、创建制造商型号
+    #创建制造商型号
     def create_product_model(self, model_name, manufacturer_obj):
         return ProductModel.objects.create(model_name=model_name,vendor=manufacturer_obj)
-
-    #3.1、创建提交数据
-    def create_server(self, validated_data):
-        #server model没有这个字段，所以先拿出来
-        network = validated_data.pop("network")
-        #创建对象，返回server的实例
-        server_obj =  Server.objects.create(**validated_data)
-        #检测网卡，没有创建
-        self.check_server_network_device(server_obj,network)
-        return server_obj
+##############################################################################################################
 
 
-    #3、post提交走create方法
+##############################################################################################################
+    #反序列化组后一步提交走create方法
+    #继续处理逻辑
     def create(self, validated_data):
+        #print(validated_data)
         uuid = validated_data['uuid'].lower()
         sn   = validated_data['sn'].lower()
         try:
@@ -74,6 +71,15 @@ class ServerAutoReportSerializer(serializers.Serializer):
         else:
             return self.update_server(server_obj, validated_data)
 
+    def create_server(self, validated_data):
+        #server model没有这个字段，所以先拿出来
+        network = validated_data.pop("network")
+        #创建对象，返回server的实例
+        server_obj =  Server.objects.create(**validated_data)
+        #检测网卡，没有创建
+        self.check_server_network_device(server_obj,network)
+        return server_obj
+
     def update_server(self, instance, validated_data):
         instance.ip = validated_data.get("ip", instance.ip)
         instance.hostname = validated_data.get("hostname", instance.hostname)
@@ -85,7 +91,8 @@ class ServerAutoReportSerializer(serializers.Serializer):
         self.check_server_network_device(instance, validated_data["network"])
         return instance
 
-    #3.1、检测服务器有没有给过来的网卡，没有创建，最终返回实例
+
+    #检测服务器有没有给过来的网卡，没有创建，最终返回实例
     def check_server_network_device(self,server_obj,network):
         """
         检测指定服务器有没有这些网卡设备，并做关联
@@ -103,7 +110,7 @@ class ServerAutoReportSerializer(serializers.Serializer):
         for network_device_obj in set(network_device_queryset) - set(current_network_device_queryset):
             network_device_obj.delete()
 
-    #3.2、创建网卡，并返回实例
+    #创建网卡，并返回实例
     def create_network_device(self,server_obj, device):
         ips = device.pop("ips")
         #host是外键，需要server实例
@@ -111,7 +118,7 @@ class ServerAutoReportSerializer(serializers.Serializer):
         #获取network实例
         network_device_obj = NetworkDevice.objects.create(**device)
         return network_device_obj
-    #3.3、检测网卡ip，不存在创建
+    #检测网卡ip，不存在创建
     def check_ip(self, network_device_obj, ifnets):
         ip_queryset = network_device_obj.ip_set.all()
         current_ip_queryset = []
@@ -125,20 +132,19 @@ class ServerAutoReportSerializer(serializers.Serializer):
         for ip_obj in set(ip_queryset) - set(current_ip_queryset):
             ip_obj.delete()
 
-    #3.4、创建网卡ip
+    #创建网卡ip
     def create_ip(self, network_device_obj, ifnet):
         ifnet["device"] = network_device_obj
         return IP.objects.create(**ifnet)
 
-    #4、返回的json
+    #反序列化最后一步返回的json
     def to_representation(self, instance):
         ret = {
             "hostname":instance.hostname,
-            "ip": instance.ip,
-            "aaa":"bbb"
+            "ip": instance.ip
         }
         return ret
-
+##############################################################################################
 
 
 class ServerSerializer(serializers.ModelSerializer):

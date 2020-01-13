@@ -14,34 +14,6 @@ Including another URLconf
     1. Import the include() function: from django.conf.urls import url, include
     2. Add a URL to urlpatterns:  url(r'^blog/', include('blog.urls'))
 """
-# from django.conf.urls import url,include
-# from django.contrib import admin
-# from rest_framework.routers import DefaultRouter
-# from users.views import UserViewset,DashboardStatusViewset
-# from rest_framework.documentation import include_docs_urls
-# from idcs.views import IdcViewset
-# from cabinet.views import CabinetViewset
-# from manufacturer.views import ManufacturerViewset,ProductModelViewset
-# from servers.views import  ServerAutoReportViewset,NetworkDeviceViewset,IPViewset,ServerViewset
-#
-# route = DefaultRouter()
-# route.register("idcs", IdcViewset, base_name="idcs")
-# route.register("users", UserViewset, base_name="users")
-# route.register("cabinet", CabinetViewset, base_name="cabinet")
-# route.register("Manufacturer", ManufacturerViewset, base_name="Manufacturer")
-# route.register("ProductModel", ProductModelViewset, base_name="ProductModel")
-# route.register("ServerAutoReport", ServerAutoReportViewset, base_name="ServerAutoReport")
-# route.register("NetworkDevice", NetworkDeviceViewset, base_name="NetworkDevice")
-# route.register("IP", IPViewset, base_name="IP")
-# route.register("Server", ServerViewset, base_name="Server")
-# route.register("Dashboard", DashboardStatusViewset, base_name="Dashboard")
-#
-# urlpatterns = [
-#     url(r'^', include(route.urls)),
-#     url(r'^api-auth', include("rest_framework.urls",namespace="rest_framework")),
-#     url(r'^docs/', include_docs_urls("运维平台接口文档"))
-# ]
-
 from django.conf.urls import url,include
 from rest_framework.routers import DefaultRouter
 from rest_framework.documentation import include_docs_urls
@@ -49,6 +21,7 @@ from idcs.views import IdcViewset
 from users.views import UserViewset
 from cabinet.views import CabinetViewset
 from manufacturer.views import ManufacturerViewset,ProductModelViewset
+from servers.views import ServerAutoReportViewset,ServerViewset,NetworkDeviceViewset,IPViewset
 
 from rest_framework.schemas import get_schema_view
 from rest_framework_swagger.renderers import SwaggerUIRenderer, OpenAPICodec
@@ -62,6 +35,10 @@ route.register("users",UserViewset , base_name="users")
 route.register("cabinet",CabinetViewset , base_name="cabinet")
 route.register("Manufacturer",ManufacturerViewset , base_name="Manufacturer")
 route.register("ProductModel",ProductModelViewset , base_name="ProductModel")
+route.register("ServerAutoReport",ServerAutoReportViewset , base_name="ServerAutoReport")
+route.register("Server",ServerViewset , base_name="Server")
+route.register("NetworkDevice",NetworkDeviceViewset , base_name="NetworkDevice")
+route.register("IP",IPViewset , base_name="IP")
 
 urlpatterns = [
     url(r'^', include(route.urls)),

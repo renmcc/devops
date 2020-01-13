@@ -8,6 +8,8 @@ from servers.serializers import ServerAutoReportSerializer,NetworkDeviceSerializ
 from .filter import ServerFilter
 
 # Create your views here.
+
+#只支持post方法
 class ServerAutoReportViewset(mixins.CreateModelMixin, viewsets.GenericViewSet):
     """
     create：
@@ -16,6 +18,7 @@ class ServerAutoReportViewset(mixins.CreateModelMixin, viewsets.GenericViewSet):
     queryset = Server.objects.all()
     serializer_class = ServerAutoReportSerializer
 
+#ReadOnlyModelViewSet只读
 class ServerViewset(viewsets.ReadOnlyModelViewSet):
     """
     retrieve:
@@ -31,6 +34,7 @@ class ServerViewset(viewsets.ReadOnlyModelViewSet):
         "GET": ["servers.view_server"]
     }
 
+#ReadOnlyModelViewSet只读
 class NetworkDeviceViewset(viewsets.ReadOnlyModelViewSet):
     """
     retrieve:
@@ -41,6 +45,7 @@ class NetworkDeviceViewset(viewsets.ReadOnlyModelViewSet):
     queryset = NetworkDevice.objects.all()
     serializer_class = NetworkDeviceSerializer
 
+#ReadOnlyModelViewSet只读
 class IPViewset(viewsets.ReadOnlyModelViewSet):
     """
     retrieve:
