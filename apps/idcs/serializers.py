@@ -17,6 +17,7 @@ class IdcSerializer(serializers.Serializer):
     phone       = serializers.CharField(required=True, max_length=15, label="机房电话",help_text="机房电话")
     email       = serializers.EmailField(required=True, label="机房邮件",help_text="机房邮件")
     letter      = serializers.CharField(required=True,max_length=5,label="机房简称",help_text="机房简称")
+    status      = serializers.BooleanField(required=True,label="机房是否启用",help_text="机房是否启用")
 
     def create(self, validated_data):
         return Idc.objects.create(**validated_data)
@@ -27,5 +28,6 @@ class IdcSerializer(serializers.Serializer):
         instance.phone = validated_data.get("phone", instance.phone)
         instance.email = validated_data.get("email", instance.email)
         instance.letter = validated_data.get("letter", instance.letter)
+        instance.status = validated_data.get("status", instance.status)
         instance.save()
         return instance
