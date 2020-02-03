@@ -96,7 +96,7 @@ DATABASES = {
         'NAME': 'devops',
         'USER': 'root',
         'PASSWORD': '123456',
-        'HOST': '192.168.10.10',
+        'HOST': '192.168.10.50',
         'OPTIONS': {'init_command':'SET storage_engine=INNODB;',
                     'init_command':"SET sql_mode='STRICT_TRANS_TABLES'",
                     }
