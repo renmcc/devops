@@ -10,6 +10,7 @@ from .serializers import UserSerializer
 from rest_framework.authentication import SessionAuthentication
 from rest_framework.permissions import IsAuthenticated
 from .filter import UserFilter
+from django_filters.rest_framework import DjangoFilterBackend
 
 
 User = get_user_model()
@@ -27,8 +28,9 @@ class UserViewset(viewsets.ReadOnlyModelViewSet):
     #如果有不需要分页的视图可以把变量为None
     #pagination_class = PageNumberPagination
 
-    # filter_class = UserFilter
-    # filter_fields = ("username",)
+    filter_class = UserFilter
+    #filter_backends = (DjangoFilterBackend,)
+    filter_fields = ("username",)
     # authentication_classes = (SessionAuthentication,)
     #permission_classes = (IsAuthenticated,)
 

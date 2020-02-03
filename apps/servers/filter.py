@@ -11,6 +11,7 @@ class ServerFilter(django_filters.FilterSet):
     hostname = django_filters.CharFilter(method="search_hostname")
 
     def search_hostname(self, queryset, name, value):
+        #通过Q实现多条件搜索
         return queryset.filter(Q(hostname__icontains=value)|Q(ip__icontains=value))
 
     class Meta:

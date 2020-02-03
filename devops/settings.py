@@ -96,7 +96,7 @@ DATABASES = {
         'NAME': 'devops',
         'USER': 'root',
         'PASSWORD': '123456',
-        'HOST': '192.168.10.50',
+        'HOST': '192.168.10.10',
         'OPTIONS': {'init_command':'SET storage_engine=INNODB;',
                     'init_command':"SET sql_mode='STRICT_TRANS_TABLES'",
                     }
@@ -250,7 +250,12 @@ STATIC_URL = '/static/'
 #     ),
 # }
 REST_FRAMEWORK = {
+    #分页
     "PAGE_SIZE": 10,
-    "DEFAULT_PAGINATION_CLASS":"rest_framework.pagination.PageNumberPagination"
+    "DEFAULT_PAGINATION_CLASS":"rest_framework.pagination.PageNumberPagination",
+    #搜索
+    'DEFAULT_FILTER_BACKENDS': (
+        'django_filters.rest_framework.DjangoFilterBackend',
+    ),
 }
 SILENCED_SYSTEM_CHECKS = ['mysql.E001']
