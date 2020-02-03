@@ -25,10 +25,10 @@ class UserViewset(viewsets.ReadOnlyModelViewSet):
     queryset = User.objects.all()
     serializer_class = UserSerializer
     #如果有不需要分页的视图可以把变量为None
-    # pagination_class = Pagination
+    #pagination_class = PageNumberPagination
 
-    filter_class = UserFilter
-    filter_fields = ("username",)
+    # filter_class = UserFilter
+    # filter_fields = ("username",)
     # authentication_classes = (SessionAuthentication,)
     #permission_classes = (IsAuthenticated,)
 
