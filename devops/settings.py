@@ -260,6 +260,8 @@ REST_FRAMEWORK = {
     #使用django的模型权限
     'DEFAULT_PERMISSION_CLASSES': (
         #'rest_framework.permissions.DjangoModelPermissions',
+        #必须得登录
+        'rest_framework.permissions.IsAuthenticated',
         #使用自定义权限
         'devops.permissions.Permissions',
     ),
