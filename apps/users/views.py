@@ -28,11 +28,17 @@ class UserViewset(viewsets.ReadOnlyModelViewSet):
     #如果有不需要分页的视图可以把变量为None
     #pagination_class = PageNumberPagination
 
+    #自定义搜索
     filter_class = UserFilter
-    #filter_backends = (DjangoFilterBackend,)
     filter_fields = ("username",)
-    # authentication_classes = (SessionAuthentication,)
-    #permission_classes = (IsAuthenticated,)
+    #登录认证
+    #authentication_classes = (SessionAuthentication,)
+    #权限认证
+    # permission_classes = (IsAuthenticated,)
+    #django默认get权限为空,给get加自定义权限
+    # extra_perm_map = {
+    #     'GET': ['auth.view_user']
+    # }
 
 
 class DashboardStatusViewset(viewsets.ViewSet):

@@ -257,5 +257,11 @@ REST_FRAMEWORK = {
     'DEFAULT_FILTER_BACKENDS': (
         'django_filters.rest_framework.DjangoFilterBackend',
     ),
+    #使用django的模型权限
+    'DEFAULT_PERMISSION_CLASSES': (
+        #'rest_framework.permissions.DjangoModelPermissions',
+        #使用自定义权限
+        'devops.permissions.Permissions',
+    ),
 }
 SILENCED_SYSTEM_CHECKS = ['mysql.E001']

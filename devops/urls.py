@@ -42,6 +42,7 @@ route.register("IP",IPViewset , base_name="IP")
 
 urlpatterns = [
     url(r'^', include(route.urls)),
+    url(r'^api-auth', include("rest_framework.urls")),
     url(r'^docs/', include_docs_urls("运维接口文档"))
     #url(r'docs/', schema_view, name='运维接口文档')
 ]
