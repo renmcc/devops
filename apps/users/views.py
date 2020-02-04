@@ -48,6 +48,7 @@ class DashboardStatusViewset(viewsets.ViewSet):
     """
     permission_classes = (permissions.IsAuthenticated, )
 
+    #必须有list方法给viewset类用对应get
     def list(self, request, *args, **kwargs):
         data = self.get_content_data()
         return response.Response(data)
@@ -57,5 +58,9 @@ class DashboardStatusViewset(viewsets.ViewSet):
             "aa":11,
             "bb":22
         }
+
+    #post对应的方法名是create
+    def create(self, request, *args, **kwargs):
+        pass
 
 

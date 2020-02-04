@@ -18,7 +18,7 @@ from django.conf.urls import url,include
 from rest_framework.routers import DefaultRouter
 from rest_framework.documentation import include_docs_urls
 from idcs.views import IdcViewset
-from users.views import UserViewset
+from users.views import UserViewset, DashboardStatusViewset
 from cabinet.views import CabinetViewset
 from manufacturer.views import ManufacturerViewset,ProductModelViewset
 from servers.views import ServerAutoReportViewset,ServerViewset,NetworkDeviceViewset,IPViewset
@@ -32,6 +32,7 @@ route = DefaultRouter()
 
 route.register("idcs", IdcViewset, base_name="idcs")
 route.register("users",UserViewset , base_name="users")
+route.register("DashboardStatus",DashboardStatusViewset , base_name="DashboardStatus")
 route.register("cabinet",CabinetViewset , base_name="cabinet")
 route.register("Manufacturer",ManufacturerViewset , base_name="Manufacturer")
 route.register("ProductModel",ProductModelViewset , base_name="ProductModel")
