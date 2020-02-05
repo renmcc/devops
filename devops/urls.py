@@ -47,3 +47,8 @@ urlpatterns = [
     url(r'^docs/', include_docs_urls("运维接口文档"))
     #url(r'docs/', schema_view, name='运维接口文档')
 ]
+
+from rest_framework.authtoken import views
+urlpatterns += [
+    url(r'^api-token-auth/', views.obtain_auth_token)
+]

@@ -26,7 +26,7 @@ SECRET_KEY = '(ku3*yb@g+j6zui0qic2wc4$lmg_fk(e2w$cv#fzrg!5t$@w2d'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["192.168.1.67","127.0.0.1"]
+ALLOWED_HOSTS = ["192.168.1.67","127.0.0.1","192.168.10.10","192.168.10.1"]
 
 
 # Application definition
@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     #'dashboard.apps.DashboardConfig',
+    'rest_framework.authtoken',
     'rest_framework',
     'django_filters',
     'idcs.apps.IdcsConfig',
@@ -257,13 +258,19 @@ REST_FRAMEWORK = {
     'DEFAULT_FILTER_BACKENDS': (
         'django_filters.rest_framework.DjangoFilterBackend',
     ),
-    # #使用django的模型权限
-    # 'DEFAULT_PERMISSION_CLASSES': (
-    #     #'rest_framework.permissions.DjangoModelPermissions',
-    #     #必须得登录
-    #     'rest_framework.permissions.IsAuthenticated',
-    #     #使用自定义权限
-    #     'devops.permissions.Permissions',
-    # ),
+    #使用django的模型权限
+    'DEFAULT_PERMISSION_CLASSES': (
+        #'rest_framework.permissions.DjangoModelPermissions',
+        #必须得登录
+        'rest_framework.permissions.IsAuthenticated',
+        #使用自定义权限
+        'devops.permissions.Permissions',
+    ),
+    #添加token认证
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework.authentication.TokenAuthentication',
+        'rest_framework.authentication.SessionAuthentication',
+        'rest_framework.authentication.BasicAuthentication'
+    ),
 }
 SILENCED_SYSTEM_CHECKS = ['mysql.E001']
