@@ -26,6 +26,7 @@ from servers.views import ServerAutoReportViewset,ServerViewset,NetworkDeviceVie
 from rest_framework.schemas import get_schema_view
 from rest_framework_swagger.renderers import SwaggerUIRenderer, OpenAPICodec
 schema_view = get_schema_view(title='API', renderer_classes=[SwaggerUIRenderer, OpenAPICodec])
+from rest_framework_jwt.views import obtain_jwt_token
 
 
 route = DefaultRouter()
@@ -44,11 +45,12 @@ route.register("IP",IPViewset , base_name="IP")
 urlpatterns = [
     url(r'^', include(route.urls)),
     url(r'^api-auth', include("rest_framework.urls")),
-    url(r'^docs/', include_docs_urls("运维接口文档"))
-    #url(r'docs/', schema_view, name='运维接口文档')
+    url(r'^docs/', include_docs_urls("运维接口文档")),
+    #url(r'docs/', schema_view, name='运维接口文档'),
+    url(r'^api-token-auth/', obtain_jwt_token),
 ]
 
-from rest_framework.authtoken import views
-urlpatterns += [
-    url(r'^api-token-auth/', views.obtain_auth_token)
-]
+# from rest_framework.authtoken import views
+# urlpatterns += [
+#     url(r'^api-token-auth/', views.obtain_auth_token)
+# ]
