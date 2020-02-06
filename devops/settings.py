@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     #'dashboard.apps.DashboardConfig',
+    'corsheaders',
     'rest_framework.authtoken',
     'rest_framework',
     'django_filters',
@@ -53,12 +54,23 @@ INSTALLED_APPS = [
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    #跨站
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
+
+#允许携带cookie
+CORS_ALLOW_CREDENTIALS = True
+#允许所有跨站
+CORS_ORIGIN_ALLOW_ALL = True
+#跨站白名单
+# CORS_ORIGIN_WHITELIST = (
+#     '*',
+# )
 
 ROOT_URLCONF = 'devops.urls'
 
