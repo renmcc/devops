@@ -42,6 +42,10 @@ route.register("Server",ServerViewset , base_name="Server")
 route.register("NetworkDevice",NetworkDeviceViewset , base_name="NetworkDevice")
 route.register("IP",IPViewset , base_name="IP")
 
+
+from groups.router import group_router
+route.registry.extend(group_router.registry)
+
 urlpatterns = [
     url(r'^', include(route.urls)),
     url(r'^api-auth', include("rest_framework.urls")),

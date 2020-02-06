@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/1.11/ref/settings/
 
 import os
 import sys
+import datetime
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -45,6 +46,7 @@ INSTALLED_APPS = [
     'django_filters',
     'idcs.apps.IdcsConfig',
     'users.apps.UsersConfig',
+    'groups.apps.GroupsConfig',
     'cabinet.apps.CabinetConfig',
     'manufacturer.apps.ManufacturerConfig',
     'servers.apps.ServersConfig',
@@ -288,3 +290,7 @@ REST_FRAMEWORK = {
     ),
 }
 SILENCED_SYSTEM_CHECKS = ['mysql.E001']
+
+JWT_AUTH = {
+    'JWT_EXPIRATION_DELTA': datetime.timedelta(seconds=3000),
+}
