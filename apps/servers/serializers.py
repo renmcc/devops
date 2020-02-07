@@ -152,6 +152,34 @@ class ServerSerializer(serializers.ModelSerializer):
     """
     服务器序列化类
     """
+    def get_network_device(self, server_obj):
+        ret = []
+        network_device = server_obj.networkdevice_set.all()
+        for device in network_device:
+            data = {
+                "name": device.name,
+                "mac": device.mac,
+                "ips": self.get_ip(device)
+            }
+            ret.append(data)
+        return ret
+
+    def get_ip(self, network_device_obj):
+        ret = []
+        for ifnet in network_device_obj.ip_set.all():
+            data = {
+                "ip": ifnet.ip_addr,
+                "netmask": ifnet.netmask
+            }
+            ret.append(data)
+        return ret
+
+    # 序列化最后一步
+    def to_representation(self, instance):
+        ret = super(ServerSerializer, self).to_representation(instance)
+        ret["device"] = self.get_network_device(instance)
+        return ret
+
     class Meta:
         model = Server
         fields = "__all__"
