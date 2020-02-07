@@ -8,6 +8,12 @@ from rest_framework import serializers
 
 class GroupSerializer(serializers.ModelSerializer):
 
+    # 序列化添加字段
+    def to_representation(self, instance):
+        ret = super(GroupSerializer, self).to_representation(instance)
+        ret["users"] = instance.user_set.all().count()
+        return ret
+
     class Meta:
         model = Group
         fields = ("id", "name")
