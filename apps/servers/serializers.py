@@ -152,8 +152,8 @@ class ServerSerializer(serializers.ModelSerializer):
     """
     服务器序列化类
     """
-    last_check = serializers.DateTimeField(format="%Y-%m-%d %H:%M:%S")
-    
+    last_check = serializers.DateTimeField(format="%Y-%m-%d %H:%M:%S",read_only=True)
+
     def get_network_device(self, server_obj):
         ret = []
         network_device = server_obj.networkdevice_set.all()
